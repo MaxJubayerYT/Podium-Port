@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom'
+    id 'net.fabricmc.fabric-loom'
     id 'maven-publish'
 }
 
@@ -32,11 +32,11 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    // mappings loom.officialMojangMappings()
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
-    // sosium
-    modImplementation "maven.modrinth:sodium:mc1.21.4-0.6.13-fabric"
+    // sodium
+    implementation "maven.modrinth:sodium:mc26.2-0.9.0-fabric"
 }
 
 processResources {
@@ -62,7 +62,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 25
 }
 
 java {
@@ -71,8 +71,8 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -87,7 +87,7 @@ jar {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = project.mod_id
+            artifactId = providers.gradleProperty("mod_id").get()
             from components.java
         }
     }
