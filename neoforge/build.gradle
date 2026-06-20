@@ -22,7 +22,7 @@ def extractJarJarDependency = { String outerJarCoordinates, String innerJarName 
         def zip = new ZipFile(outerJar)
         def entry = zip.getEntry("META-INF/jarjar/${innerJarName}")
         if (entry == null) {
-            throw new GradleException("Could not find META-INF/jarjar/${innerJarName} in ${outerJar.name}")
+            throw new IllegalStateException("Could not find META-INF/jarjar/${innerJarName} in ${outerJar.name}")
         }
 
         zip.getInputStream(entry).withCloseable { input ->
@@ -60,7 +60,7 @@ base {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
     withSourcesJar()
 }
 
