@@ -10,7 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PreLaunchChecks.class)
 public abstract class PreLaunchChecksMixin {
     @Shadow(remap = false)
-    private static boolean isUsingPrismLauncher() { return false; }
+    private static String getLauncherBrand(){
+        return "unknown";
+    } ;
 
     // removing this check may cause issues outside pojav
     @Inject(
@@ -24,6 +26,6 @@ public abstract class PreLaunchChecksMixin {
         // this means that if somehow, a prism user ends up with podium and the wrong lwjgl version
         // we don't need to give them a weird crash message because some non-existant method has been
         // called, but instead give them the default lwjgl mismatch message
-        if(!isUsingPrismLauncher()) ci.cancel();
+        if(!getLauncherBrand().equalsIgnoreCase("prismlauncher")) ci.cancel();
     }
 }

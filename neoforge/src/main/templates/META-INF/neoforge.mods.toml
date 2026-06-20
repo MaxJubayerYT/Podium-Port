@@ -75,7 +75,7 @@ side="CLIENT"
 [[dependencies."${mod_id}"]]
 modId = "sodium"
 type = "required"
-versionRange = "[0.5.13,)"
+versionRange = "[0.9.0,)"
 ordering = "BEFORE"
 side = "CLIENT"
 
